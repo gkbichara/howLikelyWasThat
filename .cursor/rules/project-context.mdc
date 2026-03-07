@@ -38,3 +38,4 @@ One row per player × season × league. Key columns:
 - Prefer explicit over implicit. No magic.
 - The user is learning — write clear, readable code with intent visible in structure, not comments.
 - Never explain what code does in comments. Only explain *why* when non-obvious.
+- No file should exceed 300 lines. Split into smaller modules if approaching that limit.

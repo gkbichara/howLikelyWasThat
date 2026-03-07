@@ -53,7 +53,9 @@ Single unified table: `player_seasons`
 | `league` | text | e.g. `la_liga`, `serie_a` |
 | `season` | text | e.g. `2011-12` |
 | `apps` | int | Appearances |
+| `starts` | int | Starts |
 | `minutes` | int | Minutes played |
+| `nineties` | float | 90s completed |
 | `goals` | int | Total goals |
 | `npg` | int | Non-penalty goals |
 | `assists` | int | Assists |
