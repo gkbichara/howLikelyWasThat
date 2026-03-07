@@ -1,0 +1,40 @@
+---
+description: Next.js and React conventions for the frontend
+globs: frontend/**/*.{ts,tsx,js,jsx}
+alwaysApply: false
+---
+
+# Frontend Conventions
+
+## Stack
+
+- Next.js 14+ with App Router
+- TypeScript
+- Tailwind CSS for styling
+- Recharts (or Plotly) for the distribution histogram
+
+## Structure
+
+- Pages live in `frontend/app/`
+- Reusable components in `frontend/components/`
+- API calls and helpers in `frontend/lib/`
+- All API calls go to the FastAPI backend — never directly to Supabase
+
+## React Patterns
+
+- Functional components only, no class components
+- `use client` directive only when interactivity requires it — prefer server components for data fetching
+- Custom hooks in `frontend/lib/hooks/` for reusable stateful logic
+- Props always typed with TypeScript interfaces
+
+## API Integration
+
+- All backend calls go through a typed client in `frontend/lib/api.ts`
+- Use `async/await`, handle loading and error states explicitly in UI
+- Never expose the Supabase URL or service key in frontend code
+
+## UI Principles
+
+- The user is new to React — keep component trees shallow and obvious
+- One component = one clear responsibility
+- Loading states and error messages must always be handled visibly

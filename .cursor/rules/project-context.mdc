@@ -1,0 +1,40 @@
+---
+description: Core project context, architecture, and conventions for howLikelyWasThat
+alwaysApply: true
+---
+
+# howLikelyWasThat — Project Context
+
+A web app that takes any footballer's attacking season, compares it to a user-defined pool of seasons, tests the distribution, and returns a probability / z-score with a histogram visualisation.
+
+## Stack
+
+- **Scraping**: Python + `requests` + `BeautifulSoup` (fbref.com)
+- **Database**: Supabase (Postgres) — single table `player_seasons`
+- **Backend**: FastAPI (Python)
+- **Frontend**: Next.js (React) — first-time React user, keep explanations clear
+- **Charts**: Recharts or Plotly in the frontend
+- **Deployment**: Vercel (frontend), Railway (backend)
+
+## Key Architectural Decisions
+
+- All DB writes go through the Python scripts only. The frontend never writes to Supabase.
+- The frontend calls the FastAPI backend exclusively — it does not call Supabase directly.
+- Statistical analysis lives in the `analysis/` module, imported by the API layer.
+- No RLS on Supabase — all data is public football stats, no user auth required.
+- Upserts (not inserts) are used for all DB writes, keyed on `(fbref_id, season, league)`.
+
+## Data Model — `player_seasons`
+
+One row per player × season × league. Key columns:
+`fbref_id`, `player_name`, `team`, `league`, `season`, `apps`, `minutes`,
+`goals`, `npg`, `assists`, `ga`, `npga`,
+`goals_p90`, `npg_p90`, `assists_p90`, `ga_p90`, `scraped_at`
+
+## Coding Principles
+
+- Build toward the final vision — no throwaway scripts or "v1" shortcuts.
+- Every module should be independently testable.
+- Prefer explicit over implicit. No magic.
+- The user is learning — write clear, readable code with intent visible in structure, not comments.
+- Never explain what code does in comments. Only explain *why* when non-obvious.

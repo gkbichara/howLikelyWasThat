@@ -1,0 +1,40 @@
+---
+description: Python conventions for scraping, DB, and analysis modules
+globs: **/*.py
+alwaysApply: false
+---
+
+# Python Conventions
+
+## General
+
+- Python 3.11+
+- Use `dataclasses` or `pydantic` models for structured data — no raw dicts passed between modules
+- Type hints on all function signatures
+- Raise specific exceptions, never swallow errors silently
+
+## Scraping (`scraper/`)
+
+- Always include a delay between requests (`time.sleep`) — fbref will block aggressive scrapers
+- Parse with `BeautifulSoup`, target `id`-based table selectors (more stable than class-based)
+- Return clean typed dataclasses from scraping functions, not raw HTML or dicts
+- Log each season scraped with the count of rows returned
+
+## Database (`db/`)
+
+- Use `python-dotenv` to load `SUPABASE_URL` and `SUPABASE_KEY` from `.env`
+- All writes are upserts — unique constraint on `(fbref_id, season, league)`
+- Never hardcode credentials
+
+## Analysis (`analysis/`)
+
+- Use `scipy.stats` for distribution testing and fitting
+- Use `numpy` for array operations
+- Functions should accept a list/array of values and return typed results
+- Keep statistical logic pure — no DB calls inside analysis functions
+
+## Testing
+
+- Use `pytest`
+- Each module has a corresponding test file in `tests/`
+- Scraper tests should use saved HTML fixtures, not live network calls
