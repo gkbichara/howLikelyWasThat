@@ -36,7 +36,7 @@ No versions. Each task is a step toward that end state.
 - [x] Write an upsert function (`db/upsert.py`) that takes a list of player season records and writes them to Supabase
 - [ ] Run the La Liga scraper end-to-end and load all 20 seasons into Supabase
 - [x] Verify the data: row count per season, spot-check known values (e.g. Messi 2011/12 = 50 goals)
-- [ ] Write a DB integration test that inserts a test row, reads it back, and cleans up
+- [x] Write a DB integration test that inserts a test row, reads it back, and cleans up
 
 ---
 
